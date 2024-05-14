@@ -1,23 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Rnd } from "react-rnd";
 import "./RndBlockStyle.css";
 
-type Props = {
-  default: {
-    width: number;
-    height: number;
-    x: number;
-    y: number;
-  };
+export type BlockState = {
+  width: number;
+  height: number;
+  x: number;
+  y: number;
 };
 
-export default function RndBlcok(props: Props) {
-  const [state, setState] = useState({
-    width: props.default.width,
-    height: props.default.height,
-    x: props.default.x,
-    y: props.default.y,
-  });
+type Props = {
+  blockState: BlockState;
+  setBlockState: (blockState: BlockState) => void;
+};
+
+export default function RndBlcok({ blockState, setBlockState }: Props) {
+  const [state, setState] = useState<BlockState>(blockState);
+  useEffect(() => {
+    setBlockState(state);
+  }, [state]);
 
   return (
     <Rnd
