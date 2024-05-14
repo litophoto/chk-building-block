@@ -15,20 +15,20 @@ type Props = {
 };
 
 export default function RndBlcok({ blockState, setBlockState }: Props) {
-  const [state, setState] = useState<BlockState>(blockState);
+  const [localState, setLocalState] = useState<BlockState>(blockState);
   useEffect(() => {
-    setBlockState(state);
-  }, [state]);
+    setBlockState(localState);
+  }, [localState]);
 
   return (
     <Rnd
-      size={{ width: state.width, height: state.height }}
-      position={{ x: state.x, y: state.y }}
+      size={{ width: localState.width, height: localState.height }}
+      position={{ x: localState.x, y: localState.y }}
       onDragStop={(_e, d) => {
-        setState({ ...state, x: d.x, y: d.y });
+        setLocalState({ ...localState, x: d.x, y: d.y });
       }}
       onResizeStop={(_e, _direction, ref, _delta, position) => {
-        setState({
+        setLocalState({
           width: parseInt(ref.style.width),
           height: parseInt(ref.style.height),
           ...position,
